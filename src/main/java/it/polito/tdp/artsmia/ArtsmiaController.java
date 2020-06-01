@@ -12,64 +12,74 @@ import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
 
 public class ArtsmiaController {
-	
+
 	private Model model ;
 
-    @FXML
-    private ResourceBundle resources;
+	@FXML
+	private ResourceBundle resources;
 
-    @FXML
-    private URL location;
+	@FXML
+	private URL location;
 
-    @FXML
-    private Button btnCreaGrafo;
+	@FXML
+	private Button btnCreaGrafo;
 
-    @FXML
-    private Button btnArtistiConnessi;
+	@FXML
+	private Button btnArtistiConnessi;
 
-    @FXML
-    private Button btnCalcolaPercorso;
+	@FXML
+	private Button btnCalcolaPercorso;
 
-    @FXML
-    private ComboBox<?> boxRuolo;
+	@FXML
+	private ComboBox<String> boxRuolo;
 
-    @FXML
-    private TextField txtArtista;
+	@FXML
+	private TextField txtArtista;
 
-    @FXML
-    private TextArea txtResult;
+	@FXML
+	private TextArea txtResult;
 
-    @FXML
-    void doArtistiConnessi(ActionEvent event) {
-    	txtResult.clear();
-    	txtResult.appendText("Calcola artisti connessi");
-    }
+	@FXML
+	void doArtistiConnessi(ActionEvent event) {
+		txtResult.clear();
+		txtResult.appendText("Calcola artisti connessi");
+	}
 
-    @FXML
-    void doCalcolaPercorso(ActionEvent event) {
-    	txtResult.clear();
-    	txtResult.appendText("Calcola percorso");
-    }
+	@FXML
+	void doCalcolaPercorso(ActionEvent event) {
+		txtResult.clear();
+		txtResult.appendText("Calcola percorso");
+	}
 
-    @FXML
-    void doCreaGrafo(ActionEvent event) {
-    	txtResult.clear();
-    	txtResult.appendText("Crea grafo");
-    }
+	@FXML
+	void doCreaGrafo(ActionEvent event) {
+		txtResult.clear();
 
-    public void setModel(Model model) {
-    	this.model = model;
-    }
+		String ruolo = this.boxRuolo.getValue();
+		if(ruolo == null) {
+			txtResult.appendText("SELEZIONA UN RUOLO!");
+			return ;
+		}
 
-    
-    @FXML
-    void initialize() {
-        assert btnCreaGrafo != null : "fx:id=\"btnCreaGrafo\" was not injected: check your FXML file 'Artsmia.fxml'.";
-        assert btnArtistiConnessi != null : "fx:id=\"btnArtistiConnessi\" was not injected: check your FXML file 'Artsmia.fxml'.";
-        assert btnCalcolaPercorso != null : "fx:id=\"btnCalcolaPercorso\" was not injected: check your FXML file 'Artsmia.fxml'.";
-        assert boxRuolo != null : "fx:id=\"boxRuolo\" was not injected: check your FXML file 'Artsmia.fxml'.";
-        assert txtArtista != null : "fx:id=\"txtArtista\" was not injected: check your FXML file 'Artsmia.fxml'.";
-        assert txtResult != null : "fx:id=\"txtResult\" was not injected: check your FXML file 'Artsmia.fxml'.";
+		this.model.creaGrafo(ruolo);
+		txtResult.appendText(String.format("Grafo creato con %d vertici e %d archi", 
+				this.model.vertici(), this.model.archi()));
+	}
 
-    }
+	public void setModel(Model model) {
+		this.model = model;
+		boxRuolo.getItems().addAll(this.model.getRuoli());
+	}
+
+
+	@FXML
+	void initialize() {
+		assert btnCreaGrafo != null : "fx:id=\"btnCreaGrafo\" was not injected: check your FXML file 'Artsmia.fxml'.";
+		assert btnArtistiConnessi != null : "fx:id=\"btnArtistiConnessi\" was not injected: check your FXML file 'Artsmia.fxml'.";
+		assert btnCalcolaPercorso != null : "fx:id=\"btnCalcolaPercorso\" was not injected: check your FXML file 'Artsmia.fxml'.";
+		assert boxRuolo != null : "fx:id=\"boxRuolo\" was not injected: check your FXML file 'Artsmia.fxml'.";
+		assert txtArtista != null : "fx:id=\"txtArtista\" was not injected: check your FXML file 'Artsmia.fxml'.";
+		assert txtResult != null : "fx:id=\"txtResult\" was not injected: check your FXML file 'Artsmia.fxml'.";
+
+	}
 }
