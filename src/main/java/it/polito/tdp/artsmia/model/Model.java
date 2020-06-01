@@ -1,6 +1,7 @@
 package it.polito.tdp.artsmia.model;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 import org.jgrapht.Graph;
@@ -60,4 +61,5 @@ public class Model {
 		System.out.println("# ARCHI: " + this.grafo.edgeSet().size());
 	}
 	
+
 }

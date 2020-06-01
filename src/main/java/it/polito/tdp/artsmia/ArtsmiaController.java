@@ -1,8 +1,13 @@
 package it.polito.tdp.artsmia;
 
 import java.net.URL;
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.List;
 import java.util.ResourceBundle;
 
+
+import it.polito.tdp.artsmia.model.Adiacenza;
 import it.polito.tdp.artsmia.model.Model;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -42,7 +47,16 @@ public class ArtsmiaController {
 	@FXML
 	void doArtistiConnessi(ActionEvent event) {
 		txtResult.clear();
-		txtResult.appendText("Calcola artisti connessi");
+		
+		List<Adiacenza> adiacenze = this.model.getAdiacenze();
+		if(adiacenze == null) {
+			txtResult.appendText("Devi creare prima il grafo!");
+		}
+		Collections.sort(adiacenze);
+		
+		for(Adiacenza a : adiacenze) {
+			txtResult.appendText(String.format("(%d,%d) = %d\n", a.getA1(), a.getA2(), a.getPeso()));
+		}
 	}
 
 	@FXML
